@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { BsGoogle } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 function Login() {
 	const { register, handleSubmit, formState: { errors } } = useForm();
@@ -92,6 +93,13 @@ function Login() {
 									e.preventDefault();
 									loginWithGoogle();
 								}} className="btn btn-outline flex gap-3"><span className="text-xl"><BsGoogle /></span>Sign in with Google</button>
+							</div>
+							<div className="form-control text-center">
+								<span>
+									<small>Don't have an account? Create{" "}
+										<span className="underline"><Link to="/register">here</Link></span>.
+									</small>
+								</span>
 							</div>
 						</form>
 					</div>
