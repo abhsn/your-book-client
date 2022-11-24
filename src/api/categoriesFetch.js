@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const categoriesFetch = axios.create({
-	baseURL: "http://localhost:5000",
+	baseURL: "https://b612-used-products-resale-server-side-abhsn.vercel.app",
 	withCredentials: true
 })
 
