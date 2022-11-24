@@ -91,7 +91,7 @@ function Login() {
 								<button onClick={e => {
 									e.preventDefault();
 									loginWithGoogle();
-								}} className="btn btn-outline flex gap-3"><span className="text-xl"><BsGoogle /></span>Login with Google</button>
+								}} className="btn btn-outline flex gap-3"><span className="text-xl"><BsGoogle /></span>Sign in with Google</button>
 							</div>
 						</form>
 					</div>
