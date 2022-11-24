@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main";
+import CategoryDetails from "../pages/CategoryDetails/CategoryDetails";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
+import PrivateRoute from "../pages/PrivateRoute/PrivateRoute";
 import Register from "../pages/Register/Register";
 
 export const routes = createBrowserRouter([
@@ -20,6 +22,10 @@ export const routes = createBrowserRouter([
 			{
 				path: '/register',
 				element: <Register />
+			},
+			{
+				path: '/category/:id',
+				element: <PrivateRoute><CategoryDetails /></PrivateRoute>
 			},
 			{
 				path: '*',
