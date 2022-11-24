@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import { BsGoogle } from "react-icons/bs";
 
 function Login() {
 	const { register, handleSubmit, formState: { errors } } = useForm();
-	const { signIn } = useContext(AuthContext);
+	const { signIn, googleSignIn } = useContext(AuthContext);
 
 	// firebase error
 	const [error, setError] = useState('');
@@ -12,6 +13,13 @@ function Login() {
 	const logIn = (email, password) => {
 		setError('');
 		signIn(email, password)
+			.then(result => console.log(result))
+			.catch(err => setError(err.message))
+	}
+
+	const loginWithGoogle = () => {
+		setError('');
+		googleSignIn()
 			.then(result => console.log(result))
 			.catch(err => setError(err.message))
 	}
@@ -74,6 +82,16 @@ function Login() {
 							{/* login button */}
 							<div className="form-control mt-6">
 								<button className="btn btn-primary">Login</button>
+							</div>
+
+							<div className="divider">OR</div>
+
+							{/* login with google button */}
+							<div className="form-control">
+								<button onClick={e => {
+									e.preventDefault();
+									loginWithGoogle();
+								}} className="btn btn-outline flex gap-3"><span className="text-xl"><BsGoogle /></span>Login with Google</button>
 							</div>
 						</form>
 					</div>
