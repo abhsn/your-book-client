@@ -9,7 +9,7 @@ function Category({ category }) {
 				<h3 className="card-title">{name}</h3>
 				{/* <p>If a dog chews shoes whose shoes does he choose?</p> */}
 				<div className="card-actions justify-end">
-					<button className="btn btn-primary"><Link to={`/category/${_id}`}>View items</Link></button>
+					<Link className="btn btn-primary" to={`/category/${_id}`}>View items</Link>
 				</div>
 			</div>
 		</div>
