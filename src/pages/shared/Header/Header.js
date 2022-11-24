@@ -1,11 +1,17 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 function Header() {
+	const { user } = useContext(AuthContext);
+
 	const menuItem = <>
 		<li><Link to="/dashboard">Dashboard</Link></li>
 		<li><Link to="/blog">Blog</Link></li>
-		<li><Link to="/login">Login</Link></li>
-		<li><button>Log out</button></li>
+		{/* shows login when user isn't logged in */}
+		{
+			user ? <li><button>Log out</button></li> : <li><Link to="/login">Log in</Link></li>
+		}
 	</>
 
 	return (
