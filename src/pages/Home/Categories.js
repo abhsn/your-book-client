@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getCategories } from '../../api/categoriesFetch';
+import { getCategories } from '../../api/serverFetch';
 import Category from './Category';
 
 function Categories() {
@@ -11,7 +11,7 @@ function Categories() {
 	return (
 		<>
 			<h2 className="font-bold text-2xl divider mt-10">Categories</h2>
-			<p className='text-center'>Find your favourite type book of from below</p>
+			<p className='text-center'>Find your favourite type of book from below</p>
 			{
 				isLoading && <div className='mt-10 grid place-items-center'>
 					<div className="text-center radial-progress animate-spin" style={{ "--value": "75", "--size": "12rem", "--thickness": "1rem" }}></div>

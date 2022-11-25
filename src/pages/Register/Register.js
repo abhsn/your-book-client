@@ -1,17 +1,40 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
-
 function Register() {
 	const { register, handleSubmit, formState: { errors }, setError } = useForm();
-	const { signUp, updateUserProfile } = useContext(AuthContext);
+	const { signUp, updateUserProfile, setUser } = useContext(AuthContext);
 	const [firebaseError, setFirebaseError] = useState('');
+
+	const saveUser = (name, email) => {
+		const user = { name, email };
+		fetch('http://localhost:5000/users', {
+			method: "POST",
+			headers: {
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify(user)
+		})
+			.then(res => res.json())
+			.then(data => {
+				data.acknowledged && toast.success('User created successfully');
+				// console.log(data);
+			})
+	}
 
 	const handleSignUp = (email, password, name) => {
 		signUp(email, password)
-			.then(() => updateUserProfile(name))
+			.then(result => {
+				updateUserProfile(name)
+					.then(() => {
+						const newUserObj = { ...result.user };
+						setUser(newUserObj);
+						saveUser(name, email);
+					})
+			})
 			.catch(err => setFirebaseError(err.message))
 	}
 

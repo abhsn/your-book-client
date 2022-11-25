@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getCategory } from "../../api/categoriesFetch";
+import { getCategory } from "../../api/serverFetch";
 import BookingModal from "../../components/BookingModal/BookingModal";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import CategoryDetailsCard from "./CategoryDetailsCard";

@@ -14,7 +14,11 @@ function Login() {
 	const logIn = (email, password) => {
 		setError('');
 		signIn(email, password)
-			.then(result => console.log(result))
+			.then(result => {
+				fetch(`http://localhost:5000/jwt?email=${result.user.email}`)
+					.then(res => res.json())
+					.then(data => console.log(data));
+			})
 			.catch(err => setError(err.message))
 	}
 
