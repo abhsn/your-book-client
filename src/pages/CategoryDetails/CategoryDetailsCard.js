@@ -1,10 +1,10 @@
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { GoVerified } from 'react-icons/go';
 import { format } from 'date-fns';
-// import { Link } from 'react-router-dom';
 
-function CategoryDetailsCard({ product }) {
-	const { productName, img, location, resalePrice, originalPrice, yearsOfUse, time, sellerName, isSellerVerified } = product;
+function CategoryDetailsCard({ product, setProductName, setPrice, setProductId, setOpenModal }) {
+	const { _id, productName, img, location, resalePrice, originalPrice, yearsOfUse, time, sellerName, isSellerVerified } = product;
+
 	return (
 		// product details card
 		<div className="card card-compact w-96 bg-base-100 shadow-xl">
@@ -35,7 +35,13 @@ function CategoryDetailsCard({ product }) {
 				<span>Post time: {format(new Date(parseInt(time)), 'PP')}</span>
 
 				<div className="card-actions justify-end">
-					<button className="btn btn-primary">Book now</button>
+					{/* <button className="btn btn-primary">Book now</button> */}
+					<label htmlFor="booking-modal" className="btn btn-primary" onClick={() => {
+						setProductName(productName);
+						setPrice(resalePrice);
+						setProductId(_id);
+						setOpenModal(true);
+					}}>Book now</label>
 				</div>
 			</div>
 		</div >

@@ -1,10 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
+import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getCategory } from "../../api/categoriesFetch";
+import BookingModal from "../../components/BookingModal/BookingModal";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import CategoryDetailsCard from "./CategoryDetailsCard";
 
 function CategoryDetails() {
 	const id = useParams().id;
+	const { user } = useContext(AuthContext);
+	const [productName, setProductName] = useState('');
+	const [price, setPrice] = useState('');
+	const [productId, setProductId] = useState('');
+	const [openModal, setOpenModal] = useState(false);
+	// console.log(user);
 
 	const { isLoading, data: products = [] } = useQuery({
 		queryKey: ['category'],
@@ -23,9 +32,12 @@ function CategoryDetails() {
 				<h3 className="text-center text-xl font-bold mt-10">Products about {products[0].categoryName} book</h3>
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center mt-10">
 					{
-						products.map(product => <CategoryDetailsCard key={product._id} product={product} />)
+						products.map(product => <CategoryDetailsCard key={product._id} product={product} setProductName={setProductName} setPrice={setPrice} setProductId={setProductId} setOpenModal={setOpenModal} />)
 					}
 				</div>
+				{
+					openModal && <BookingModal user={user} productName={productName} price={price} productId={productId} />
+				}
 			</>
 		);
 	}
