@@ -9,9 +9,10 @@ function Register() {
 	const { register, handleSubmit, formState: { errors }, setError } = useForm();
 	const { signUp, updateUserProfile, setUser } = useContext(AuthContext);
 	const [firebaseError, setFirebaseError] = useState('');
+	const [buyer, setBuyer] = useState(true);
 
-	const saveUser = (name, email) => {
-		const user = { name, email };
+	const saveUser = (name, email, userType) => {
+		const user = { name, email, userType };
 		fetch('http://localhost:5000/users', {
 			method: "POST",
 			headers: {
@@ -36,14 +37,15 @@ function Register() {
 			})
 	}
 
-	const handleSignUp = (email, password, name) => {
+	const handleSignUp = (email, password, name, userType) => {
+		setFirebaseError('');
 		signUp(email, password)
 			.then(result => {
 				updateUserProfile(name)
 					.then(() => {
 						const newUserObj = { ...result.user };
 						setUser(newUserObj);
-						saveUser(name, email);
+						saveUser(name, email, userType);
 					})
 			})
 			.catch(err => setFirebaseError(err.message))
@@ -63,7 +65,7 @@ function Register() {
 							data.password !== data.confirm && setError('confirm', { type: 'custom', message: 'Password does not match.' });
 
 							// calls handleSignUp funtion
-							handleSignUp(data.email, data.password, data.name)
+							handleSignUp(data.email, data.password, data.name, data.userType)
 						})} className="card-body">
 
 							{/* email input field */}
@@ -134,6 +136,21 @@ function Register() {
 										<span className="label-text-alt text-red-500">{errors.confirm.message}</span>
 									</label>
 								}
+							</div>
+
+							{/* account type option */}
+							<div>
+								<label htmlFor="account-type" className="label">What type of account do you want to create?</label>
+								<div id="account-type" className="flex gap-8">
+									<div className="flex items-center gap-2">
+										<input {...register('userType')} id="buyer" type="radio" className="radio" value={'buyer'} defaultChecked={buyer} onClick={() => setBuyer(true)} />
+										<label className="label" htmlFor="buyer">Buyer</label>
+									</div>
+									<div className="flex items-center gap-2">
+										<input {...register('userType')} id="seller" type="radio" className="radio" value={'seller'} defaultChecked={!buyer} onClick={() => setBuyer(false)} />
+										<label className="label" htmlFor="seller">Seller</label>
+									</div>
+								</div>
 							</div>
 
 							{/* shows firebase error */}
