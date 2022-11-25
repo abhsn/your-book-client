@@ -30,4 +30,9 @@ export const getBuyers = async (email) => {
 	return res.data;
 }
 
+export const getReported = async (email) => {
+	const res = await serverFetch.get('/allreported', { params: { email }, headers: { authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
+	return res.data;
+}
+
 export default serverFetch;

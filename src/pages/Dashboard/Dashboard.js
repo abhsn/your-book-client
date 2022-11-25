@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
-import { getBuyers, getSellers } from "../../api/serverFetch";
+import { getBuyers, getReported, getSellers } from "../../api/serverFetch";
+import ReportedItemRow from "../../components/ReportedItemRow/ReportedItemRow";
 import TableRow from "../../components/TableRow/TableRow";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
@@ -25,6 +26,14 @@ function Dashboard() {
 		}
 	}
 
+	const fetchReported = async () => {
+		if (user?.email) {
+			const data = await getReported(user.email);
+			setLoading(false);
+			setUsers(data);
+		}
+	}
+
 	return (
 		<div className="lg:flex">
 			{/* dashboard navbar for admin */}
@@ -42,7 +51,11 @@ function Dashboard() {
 						fetchBuyers();
 					}} className={`${selected === 'buyers' && 'bordered'}`}><a>All Buyers</a></li>
 
-					<li onClick={() => setSelected('reported')} className={`${selected === 'reported' && 'bordered'}`}><a>Reported Item</a></li>
+					<li onClick={() => {
+						setSelected('reported');
+						setLoading(true);
+						fetchReported();
+					}} className={`${selected === 'reported' && 'bordered'}`}><a>Reported Item</a></li>
 				</ul>
 			</div>
 
@@ -53,7 +66,7 @@ function Dashboard() {
 				</div>
 			}
 			{
-				!loading && <div className="flex-grow">
+				!loading && selected !== 'reported' && <div className="flex-grow">
 					<div className="overflow-x-auto w-full">
 						<table className="table w-full">
 							{/* table header */}
@@ -69,6 +82,31 @@ function Dashboard() {
 								{/* rows */}
 								{
 									users.length > 0 && users.map((user, count) => <TableRow key={user._id} count={count} user={user} />)
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			}
+			{
+				!loading && selected === 'reported' && <div className="flex-grow">
+					<div className="overflow-x-auto w-full">
+						<table className="table w-full">
+							{/* table header */}
+							<thead>
+								<tr>
+									<th>Count</th>
+									<th>Image</th>
+									<th>Product Name</th>
+									<th>Seller Name</th>
+									<th>Seller Email</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								{/* rows */}
+								{
+									users.length > 0 && users.map((item, count) => <ReportedItemRow key={item._id} count={count} item={item} />)
 								}
 							</tbody>
 						</table>
