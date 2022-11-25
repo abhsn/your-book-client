@@ -2,11 +2,13 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { BsGoogle } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Login() {
 	const { register, handleSubmit, formState: { errors } } = useForm();
 	const { signIn, googleSignIn } = useContext(AuthContext);
+	const navigate = useNavigate();
 
 	// firebase error
 	const [error, setError] = useState('');
@@ -17,7 +19,14 @@ function Login() {
 			.then(result => {
 				fetch(`http://localhost:5000/jwt?email=${result.user.email}`)
 					.then(res => res.json())
-					.then(data => console.log(data));
+					.then(data => {
+						if (data.accessToken) {
+							localStorage.setItem('accessToken', data.accessToken);
+							navigate('/');
+						} else {
+							toast.error('An error occurred');
+						}
+					});
 			})
 			.catch(err => setError(err.message))
 	}

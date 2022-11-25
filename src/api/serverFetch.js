@@ -11,7 +11,7 @@ export const getCategories = async () => {
 }
 
 export const getCategory = async (id) => {
-	const res = await serverFetch.get(`/category/${id}`);
+	const res = await serverFetch.get(`/category/${id}`, { headers: { authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
 	return res.data;
 }
 
@@ -20,6 +20,9 @@ export const getJWT = async (email) => {
 	return res.data;
 }
 
-// export const 
+export const getSellers = async (email) => {
+	const res = await serverFetch.get('/allsellers', { params: { email }, headers: { authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
+	return res.data;
+}
 
 export default serverFetch;
