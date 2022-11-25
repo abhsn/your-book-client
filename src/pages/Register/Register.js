@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { getJWT } from "../../api/serverFetch";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
 function Register() {
@@ -19,9 +20,19 @@ function Register() {
 			body: JSON.stringify(user)
 		})
 			.then(res => res.json())
-			.then(data => {
-				data.acknowledged && toast.success('User created successfully');
-				// console.log(data);
+			.then(async data => {
+				let jwt = '';
+				if (data.acknowledged) {
+					jwt = await getJWT(email);
+					localStorage.setItem('accessToken', jwt.accessToken);
+					if (jwt.accessToken) {
+						toast.success('User created successfully');
+					} else {
+						toast.error('An error occurred');
+					}
+				} else {
+					toast.error('An error occurred');
+				}
 			})
 	}
 

@@ -1,7 +1,7 @@
 import { BsTrash } from 'react-icons/bs';
 
 function ReportedItemRow({ item, count }) {
-	console.log(item);
+	// console.log(item);
 	return (
 		<>
 			<tr>
@@ -16,7 +16,6 @@ function ReportedItemRow({ item, count }) {
 				</td>
 				<td>{item.sellerName}</td>
 				<td>{item.sellerEmail}</td>
-				{/* <td>{user.email}</td> */}
 				<th>
 					<button className="text-2xl"><BsTrash /></button>
 				</th>
