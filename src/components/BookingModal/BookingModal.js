@@ -24,15 +24,18 @@ function BookingModal({ user, productName, price, productId }) {
 			buyerDetails
 		}
 		fetch('http://localhost:5000/booking', {
-			method: 'PATCH',
+			method: 'PUT',
 			headers: {
-				'content-type': 'application/json'
+				'content-type': 'application/json',
+				'authorization': `Bearer ${localStorage.getItem('accessToken')}`
 			},
 			body: JSON.stringify(editedProduct)
 		})
 			.then(res => res.json())
 			.then(data => {
-				data.success ? toast.success('Successfully booked item') : toast.error('An error occured')
+				data.message === 'already added' && toast.error('Already added');
+				data.success && toast.success('Successfully booked item');
+				data.success === false && toast.error('An error occured');
 			})
 
 	}

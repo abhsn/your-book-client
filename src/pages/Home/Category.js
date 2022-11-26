@@ -4,7 +4,7 @@ function Category({ category }) {
 	const { name, img, _id } = category;
 	return (
 		<div className="card card-compact bg-base-100 shadow-xl">
-			<figure><img src={img} className="h-[480px]" alt={name} /></figure>
+			<figure><img src={img} className="w-80 lg:w-96 h-40 object-cover" alt={name} /></figure>
 			<div className="card-body">
 				<h3 className="card-title">{name}</h3>
 				{/* <p>If a dog chews shoes whose shoes does he choose?</p> */}

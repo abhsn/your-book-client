@@ -26,13 +26,17 @@ function AdminRoute() {
 	if (loading) {
 		return (
 			<div className='mt-10 grid place-items-center'>
-				<div className="text-center radial-progress animate-spin" style={{ "--value": "75", "--size": "12rem", "--thickness": "1rem" }}></div>
+				<div className="text-center radial-progress animate-spin" style={{ "--value": "75", "--size": "8rem", "--thickness": "1rem" }}></div>
 			</div>
 		);
 	} else {
 		if (user) {
 			if (adminLoading) {
-				<div>loading</div>
+				return (
+					<div className='mt-10 grid place-items-center'>
+						<div className="text-center radial-progress animate-spin" style={{ "--value": "75", "--size": "8rem", "--thickness": "1rem" }}></div>
+					</div>
+				);
 			} else {
 				if (userType === 'admin') {
 					return <Dashboard />

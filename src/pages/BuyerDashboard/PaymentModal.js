@@ -1,19 +1,22 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from 'axios';
 import toast from "react-hot-toast";
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
-function PaymentModal({ product }) {
+function PaymentModal({ product, setPayment, refetch }) {
 	const stripe = useStripe();
 	const elements = useElements();
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
-	if (loading) {
-		document.body.style.cursor = 'not-allowed';
-	}
-	if (!loading) {
-		document.body.style.cursor = 'auto';
-	}
+	const { user } = useContext(AuthContext);
+
+	// if (loading) {
+	// 	document.body.style.cursor = 'not-allowed';
+	// }
+	// if (!loading) {
+	// 	document.body.style.cursor = 'auto';
+	// }
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -37,17 +40,32 @@ function PaymentModal({ product }) {
 		} else {
 			setError('');
 			setLoading(true);
+			document.body.style.cursor = 'not-allowed';
 			const response = await axios.post(`http://localhost:5000/payment/${product._id}`, {
-				id: paymentMethod.id
+				id: paymentMethod.id,
+				email: user.email
+			}, {
+				headers: {
+					authorization: `Bearer ${localStorage.getItem('accessToken')}`
+				}
 			});
 
 			if (response.data.success) {
 				toast.success(`Your payment was successful and your payment id is ${response.data.paymentId}`);
 				e.target.reset();
 				setLoading(false);
+				document.body.style.cursor = 'auto';
+				setPayment(false);
+				refetch();
 			} else {
 				toast.error('An error occurred');
+				document.body.style.cursor = 'auto';
 				setLoading(false);
+			}
+
+			if (response.data.message === 'unauthorized access') {
+				document.body.style.cursor = 'auto';
+				toast.error('An error occurred. Please try to log out and log in back.');
 			}
 		}
 	};
