@@ -4,6 +4,7 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import Dashboard from "../Dashboard/Dashboard";
 import BuyerDashboard from "../BuyerDashboard/BuyerDashboard";
 import toast from "react-hot-toast";
+import SellerDashboard from "../SellerDashboard/SellerDashboard";
 
 function AdminRoute() {
 	const { user, loading } = useContext(AuthContext);
@@ -41,7 +42,7 @@ function AdminRoute() {
 				if (userType === 'admin') {
 					return <Dashboard />
 				} else if (userType === 'seller') {
-					// return <SellerDashboard />
+					return <SellerDashboard />
 				} else if (userType === 'buyer') {
 					return <BuyerDashboard />
 				} else {

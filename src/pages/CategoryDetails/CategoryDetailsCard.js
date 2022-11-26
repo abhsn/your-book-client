@@ -3,7 +3,7 @@ import { GoVerified } from 'react-icons/go';
 import { format } from 'date-fns';
 
 function CategoryDetailsCard({ product, setProductName, setPrice, setProductId, setOpenModal }) {
-	const { _id, productName, img, location, resalePrice, originalPrice, yearsOfUse, time, sellerName, isSellerVerified } = product;
+	const { _id, productName, img, location, resalePrice, originalPrice, purchasedYear, time, sellerName, isSellerVerified } = product;
 
 	return (
 		// product details card
@@ -29,7 +29,7 @@ function CategoryDetailsCard({ product, setProductName, setPrice, setProductId, 
 				<span>Original price: ${originalPrice}</span>
 
 				{/* usage years */}
-				<span>Years of use: {yearsOfUse}</span>
+				<span>Years of use: {new Date().getFullYear() - purchasedYear}</span>
 
 				{/* time when posted */}
 				<span>Post time: {format(new Date(parseInt(time)), 'PP')}</span>

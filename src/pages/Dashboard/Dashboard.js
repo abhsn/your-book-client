@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getBuyers, getReported, getSellers } from "../../api/serverFetch";
 import ReportedItemRow from "../../components/ReportedItemRow/ReportedItemRow";
 import TableRow from "../../components/TableRow/TableRow";
@@ -10,7 +10,6 @@ function Dashboard() {
 	const { user } = useContext(AuthContext);
 	const [loading, setLoading] = useState(true);
 	const [table, setTable] = useState('');
-	// console.log(table);
 
 	const fetchSellers = async () => {
 		if (user?.email) {
@@ -20,6 +19,10 @@ function Dashboard() {
 			setTable('sellers');
 		}
 	}
+
+	useEffect(() => {
+		fetchSellers();
+	}, []);
 
 	const fetchBuyers = async () => {
 		if (user?.email) {
