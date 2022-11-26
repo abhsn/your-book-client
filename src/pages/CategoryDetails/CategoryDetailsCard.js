@@ -8,7 +8,7 @@ function CategoryDetailsCard({ product, setProductName, setPrice, setProductId, 
 	return (
 		// product details card
 		<div className="card card-compact w-96 bg-base-100 shadow-xl">
-			<figure><img src={img} className="h-[480px]" alt={productName} /></figure>
+			<figure><img src={img} className="h-64" alt={productName} /></figure>
 			<div className="card-body">
 
 				{/* product name */}

@@ -1,7 +1,6 @@
 import { BsTrash } from 'react-icons/bs';
 
-function ReportedItemRow({ item, count }) {
-	// console.log(item);
+function ReportedItemRow({ item, count, table, }) {
 	return (
 		<>
 			<tr>

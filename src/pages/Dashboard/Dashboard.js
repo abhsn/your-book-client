@@ -9,12 +9,15 @@ function Dashboard() {
 	const [users, setUsers] = useState([]);
 	const { user } = useContext(AuthContext);
 	const [loading, setLoading] = useState(true);
+	const [table, setTable] = useState('');
+	// console.log(table);
 
 	const fetchSellers = async () => {
 		if (user?.email) {
 			const data = await getSellers(user.email);
 			setLoading(false);
 			setUsers(data);
+			setTable('sellers');
 		}
 	}
 
@@ -23,6 +26,7 @@ function Dashboard() {
 			const data = await getBuyers(user.email);
 			setLoading(false);
 			setUsers(data);
+			setTable('buyers');
 		}
 	}
 
@@ -31,6 +35,7 @@ function Dashboard() {
 			const data = await getReported(user.email);
 			setLoading(false);
 			setUsers(data);
+			setTable('reported');
 		}
 	}
 
@@ -81,7 +86,7 @@ function Dashboard() {
 							<tbody>
 								{/* rows */}
 								{
-									users.length > 0 && users.map((user, count) => <TableRow key={user._id} count={count} user={user} />)
+									users.length > 0 && users.map((user, count) => <TableRow table={table} key={user._id} count={count} user={user} fetchSellers={fetchSellers} fetchBuyers={fetchBuyers} />)
 								}
 							</tbody>
 						</table>
@@ -106,7 +111,7 @@ function Dashboard() {
 							<tbody>
 								{/* rows */}
 								{
-									users.length > 0 && users.map((item, count) => <ReportedItemRow key={item._id} count={count} item={item} />)
+									users.length > 0 && users.map((item, count) => <ReportedItemRow table={table} key={item._id} count={count} item={item} />)
 								}
 							</tbody>
 						</table>
