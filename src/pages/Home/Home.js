@@ -4,7 +4,6 @@ import Categories from "./Categories";
 
 function Home() {
 	const [advertised, setAdvertised] = useState([]);
-	console.log(advertised);
 
 	useEffect(() => {
 		fetch('http://localhost:5000/getAdversied')

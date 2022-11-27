@@ -1,5 +1,6 @@
 import toast from 'react-hot-toast';
 import { BsTrash } from 'react-icons/bs';
+import { GoVerified } from 'react-icons/go';
 
 function TableRow({ user, count, table, fetchSellers, fetchBuyers }) {
 	const deleteUser = () => {
@@ -24,6 +25,25 @@ function TableRow({ user, count, table, fetchSellers, fetchBuyers }) {
 				}
 			})
 	}
+
+	const verifyUser = () => {
+		fetch('http://localhost:5000/verifyUser', {
+			method: 'POST',
+			headers: {
+				authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+				useremail: user.email
+			}
+		})
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					toast.success('Successfully verified user');
+					fetchSellers();
+				} else {
+					toast.error('An error occurred');
+				}
+			})
+	}
 	return (
 		<>
 			<tr>
@@ -31,15 +51,19 @@ function TableRow({ user, count, table, fetchSellers, fetchBuyers }) {
 				<td>
 					<div className="flex items-center space-x-3">
 						<div className="font-bold">{user.name}</div>
+						{
+							user.isVerified && <span className='text-blue-500 text-xl'><GoVerified /></span>
+						}
 					</div>
 				</td>
 				<td>{user.email}</td>
 				<th>
-					<button className="text-2xl"
-						onClick={() => {
-							deleteUser();
-						}}
-					><BsTrash /></button>
+					<div className='flex items-center gap-4'>
+						{
+							table === 'sellers' && <button onClick={verifyUser} className='btn btn-primary btn-sm'>Verify</button>
+						}
+						<button className="text-2xl" onClick={deleteUser}><BsTrash /></button>
+					</div>
 				</th>
 			</tr>
 		</>
