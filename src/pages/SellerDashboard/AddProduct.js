@@ -9,7 +9,7 @@ function AddProduct({ setSelected }) {
 	const { register, handleSubmit, formState: { errors } } = useForm();
 	const { user } = useContext(AuthContext);
 
-	const imageHostKey = '111086ae671f3d002b28cbaeab0c9580';
+	const imageHostKey = process.env.REACT_APP_IMGBB;
 
 	const { data: categories = [] } = useQuery({
 		queryKey: ['categories'],

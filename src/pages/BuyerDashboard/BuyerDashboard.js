@@ -6,7 +6,7 @@ import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import MyOrderCard from "./MyOrderCard";
 import PaymentModal from "./PaymentModal";
 
-const stripePromise = loadStripe('pk_test_51M85jYF6gi7KjTmSvG8CUziTDE0y1BYKvGjeU6lkMY0vAtj4azOUzMoqArxaEwVVisOxuprKI4wgPKQGQe0WPZ5w00vcJcI27z');
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 
 function BuyerDashboard() {
 	const { user } = useContext(AuthContext);
