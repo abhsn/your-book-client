@@ -9,42 +9,59 @@ function AddProduct({ setSelected }) {
 	const { register, handleSubmit, formState: { errors } } = useForm();
 	const { user } = useContext(AuthContext);
 
+	const imageHostKey = '111086ae671f3d002b28cbaeab0c9580';
+
 	const { data: categories = [] } = useQuery({
 		queryKey: ['categories'],
 		queryFn: getCategories
 	})
 
 	const handleForm = data => {
-		// console.log(data);
-		const product = {
-			categoryId: data.categoryId,
-			// img : todo
-			location: data.location,
-			resalePrice: data.resalePrice,
-			originalPrice: data.originalPrice,
-			purchasedYear: data.purchasedYear,
-			productCondition: data.productCondition,
-			productName: data.productName,
-			sellerName: user.displayName,
-			sellerEmail: user.email
-		}
-		fetch('http://localhost:5000/addItem', {
+		const image = data.img[0];
+		const formData = new FormData();
+		formData.append('image', image);
+
+		fetch(`https://api.imgbb.com/1/upload?key=${imageHostKey}`, {
 			method: 'POST',
-			headers: {
-				'content-type': 'application/json',
-				'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-			},
-			body: JSON.stringify(product)
+			body: formData
 		})
 			.then(res => res.json())
-			.then(data => {
-				if (data.success) {
-					toast.success('Successfully added item');
-					setSelected('all');
+			.then(imgData => {
+				if (imgData.success) {
+					const imgUrl = imgData.data.image.url;
+					const product = {
+						categoryId: data.categoryId,
+						img: imgUrl,
+						location: data.location,
+						resalePrice: data.resalePrice,
+						originalPrice: data.originalPrice,
+						purchasedYear: data.purchasedYear,
+						productCondition: data.productCondition,
+						productName: data.productName,
+						sellerName: user.displayName,
+						sellerEmail: user.email
+					}
+					fetch('http://localhost:5000/addItem', {
+						method: 'POST',
+						headers: {
+							'content-type': 'application/json',
+							'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+						},
+						body: JSON.stringify(product)
+					})
+						.then(res => res.json())
+						.then(data => {
+							if (data.success) {
+								toast.success('Successfully added item');
+								setSelected('all');
+							} else {
+								toast.error('An error occurred');
+							}
+						})
 				} else {
 					toast.error('An error occurred');
 				}
-			})
+			});
 	}
 
 	return (
@@ -72,7 +89,13 @@ function AddProduct({ setSelected }) {
 								<label className="label">
 									<span className="label-text">Product Image</span>
 								</label>
-								<input type="file" className="file-input file-input-bordered w-full" />
+								<input type="file" {...register('img', { required: 'Image is required' })} className="file-input file-input-bordered w-full" />
+								{
+									errors.img?.message &&
+									<label className="label">
+										<span className="label-text-alt text-red-500">{errors.img.message}</span>
+									</label>
+								}
 							</div>
 
 							<div className="flex flex-col lg:flex-row lg:gap-2">
@@ -108,7 +131,7 @@ function AddProduct({ setSelected }) {
 									<label className="label">
 										<span className="label-text">Product Condition</span>
 									</label>
-									<select {...register('productCondition')} className="select select-bordered w-full max-w-xs">
+									<select {...register('productCondition')} className="select select-bordered w-full">
 										<option value="Excellent">Excellent</option>
 										<option value="Good">Good</option>
 										<option value="Fair">Fair</option>
