@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AdvertisedItems from "./AdvertisedItems/AdvertisedItems";
 import Categories from "./Categories";
+import Slider from "./Slider";
 
 function Home() {
 	const [advertised, setAdvertised] = useState([]);
@@ -13,6 +14,7 @@ function Home() {
 
 	return (
 		<>
+			<Slider />
 			<Categories />
 			{
 				advertised.length > 0 && <AdvertisedItems advertised={advertised} />

@@ -53,7 +53,7 @@ function Register() {
 	}
 
 	return (
-		<section className="flex flex-col items-center mt-8">
+		<section className="flex flex-col items-center my-10">
 			<h2 className="font-bold text-3xl">Register</h2>
 
 			{/* form starts here */}
