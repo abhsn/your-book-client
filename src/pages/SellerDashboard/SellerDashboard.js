@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AddProduct from "./AddProduct";
+import MyProducts from "./MyProducts";
 
 function SellerDashboard() {
 	const [selected, setSelected] = useState('add');
@@ -21,7 +22,9 @@ function SellerDashboard() {
 			{
 				selected === 'add' && <AddProduct setSelected={setSelected} />
 			}
-
+			{
+				selected === 'all' && <MyProducts />
+			}
 		</div >
 	);
 }
