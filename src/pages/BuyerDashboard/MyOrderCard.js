@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 function MyOrderCard({ order, setProduct, setPayment }) {
-	const { productId } = order;
+	const { productId, status } = order;
 	const [item, setItem] = useState({});
 
 	useEffect(() => {
@@ -23,7 +23,7 @@ function MyOrderCard({ order, setProduct, setPayment }) {
 				<p>Price: ${resalePrice}</p>
 				<div className="card-actions justify-end">
 					{
-						buyer?.paymentId ?
+						status === 'paid' ?
 							<button className="btn" disabled>Paid</button> :
 							<><label onClick={() => {
 								setProduct(item);

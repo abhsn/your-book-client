@@ -22,6 +22,27 @@ function ProductCard({ product, refetch }) {
 			})
 	}
 
+	function advertiseProduct() {
+		fetch(`http://localhost:5000/advertiseProduct/${_id}`, {
+			method: "POST",
+			headers: {
+				authorization: `Bearer ${localStorage.getItem('accessToken')}`
+			}
+		})
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					toast.success('Successfully advertised item');
+				} else {
+					if (data.message === 'already advertised') {
+						toast.error('Already advertised');
+					} else {
+						toast.error('An error occurred');
+					}
+				}
+			})
+	}
+
 	return (
 		<div className="card card-compact bg-base-100 shadow-xl">
 			<figure><img src={img} alt={productName} className="w-40 h-60 object-cover" /></figure>
@@ -37,7 +58,7 @@ function ProductCard({ product, refetch }) {
 							<button className="btn btn-primary" disabled>Sold</button>
 						</div>
 						: <div className="card-actions justify-end">
-							<label className="btn btn-success">Advertise</label>
+							<label onClick={advertiseProduct} className="btn btn-success">Advertise</label>
 							<label onClick={deleteProduct} className="btn btn-error">Delete</label>
 						</div>
 				}

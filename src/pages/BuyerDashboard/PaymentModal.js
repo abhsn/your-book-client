@@ -58,14 +58,21 @@ function PaymentModal({ product, setPayment, refetch }) {
 				setPayment(false);
 				refetch();
 			} else {
-				toast.error('An error occurred');
-				document.body.style.cursor = 'auto';
-				setLoading(false);
+				if (response.data.message === 'already bought') {
+					toast.error('Someone already bought this item. Better luck next time.');
+					document.body.style.cursor = 'auto';
+					setLoading(false);
+				} else {
+					toast.error('An error occurred');
+					document.body.style.cursor = 'auto';
+					setLoading(false);
+				}
 			}
 
 			if (response.data.message === 'unauthorized access') {
 				document.body.style.cursor = 'auto';
 				toast.error('An error occurred. Please try to log out and log in back.');
+				setLoading(false);
 			}
 		}
 	};
