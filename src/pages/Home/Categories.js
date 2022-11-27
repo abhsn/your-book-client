@@ -9,8 +9,8 @@ function Categories() {
 	})
 
 	return (
-		<>
-			<h2 className="font-bold text-2xl divider mt-10">Categories</h2>
+		<div className='my-10'>
+			<h2 className="font-bold text-2xl divider">Categories</h2>
 			<p className='text-center'>Find your favourite type of book from below</p>
 			{
 				isLoading && <div className='mt-10 grid place-items-center'>
@@ -24,7 +24,7 @@ function Categories() {
 					}
 				</div>
 			}
-		</>
+		</div>
 	);
 }
 
