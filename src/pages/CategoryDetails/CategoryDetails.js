@@ -28,14 +28,21 @@ function CategoryDetails() {
 	} else {
 		return (
 			<>
-				<h3 className="text-center text-xl font-bold mt-10">Products about {products[0].categoryName} book</h3>
-				<div className="grid lg:gap-y-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center mt-10">
-					{
-						products.map(product => <CategoryDetailsCard key={product._id} product={product} setProductName={setProductName} setPrice={setPrice} setProductId={setProductId} setOpenModal={setOpenModal} refetch={refetch} />)
-					}
-				</div>
 				{
-					openModal && <BookingModal user={user} productName={productName} price={price} productId={productId} />
+					products.length === 0 && <h3 className="text-center text-xl font-bold my-10">No item is currently available right now. Please try again later.</h3>
+				}
+				{
+					products.length !== 0 && <>
+						<h3 className="text-center text-xl font-bold mt-10">Products about {products[0]?.categoryName} book</h3>
+						<div className="grid lg:gap-y-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-items-center my-10">
+							{
+								products.map(product => <CategoryDetailsCard key={product._id} product={product} setProductName={setProductName} setPrice={setPrice} setProductId={setProductId} setOpenModal={setOpenModal} refetch={refetch} />)
+							}
+						</div>
+						{
+							openModal && <BookingModal user={user} productName={productName} price={price} productId={productId} />
+						}
+					</>
 				}
 			</>
 		);

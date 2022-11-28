@@ -114,7 +114,7 @@ function Dashboard() {
 							<tbody>
 								{/* rows */}
 								{
-									users.length > 0 && users.map((item, count) => <ReportedItemRow table={table} key={item._id} count={count} item={item} />)
+									users.length > 0 && users.map((item, count) => <ReportedItemRow table={table} key={item._id} count={count} item={item} fetchReported={fetchReported} />)
 								}
 							</tbody>
 						</table>

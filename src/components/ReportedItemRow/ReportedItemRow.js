@@ -1,6 +1,26 @@
+import toast from 'react-hot-toast';
 import { BsTrash } from 'react-icons/bs';
 
-function ReportedItemRow({ item, count, table, }) {
+function ReportedItemRow({ item, count, fetchReported }) {
+
+	const deleteReported = () => {
+		fetch(`http://localhost:5000/deleteReported/${item._id}`, {
+			method: "delete",
+			headers: {
+				authorization: `Bearer ${localStorage.getItem('accessToken')}`
+			}
+		})
+			.then(res => res.json())
+			.then(data => {
+				if (data.success) {
+					toast.success('Successfully deleted item');
+					fetchReported();
+				} else {
+					toast.error('An error occurred');
+				}
+			})
+	}
+
 	return (
 		<>
 			<tr>
@@ -16,7 +36,7 @@ function ReportedItemRow({ item, count, table, }) {
 				<td>{item.sellerName}</td>
 				<td>{item.sellerEmail}</td>
 				<th>
-					<button className="text-2xl"><BsTrash /></button>
+					<button onClick={deleteReported} className="text-2xl"><BsTrash /></button>
 				</th>
 			</tr>
 		</>

@@ -33,6 +33,7 @@ function CategoryDetailsCard({ product, setProductName, setPrice, setProductId, 
 				console.log(data)
 				if (data.success) {
 					toast.success('Successfully reported to admin');
+					refetch();
 				} else {
 					toast.error('An error occurred');
 				}
@@ -74,10 +75,7 @@ function CategoryDetailsCard({ product, setProductName, setPrice, setProductId, 
 				<div className="card-actions justify-end mt-2">
 					{/* <button className="btn btn-primary">Book now</button> */}
 					{
-						!reportedArray.includes(user.email) && <button onClick={() => {
-							reportToAdmin();
-							refetch();
-						}} className='btn btn-error'>Report to admin</button>
+						!reportedArray.includes(user.email) && <button onClick={reportToAdmin} className='btn btn-error'>Report to admin</button>
 					}
 
 					{
