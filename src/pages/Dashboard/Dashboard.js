@@ -73,8 +73,13 @@ function Dashboard() {
 					<div className="text-center radial-progress animate-spin" style={{ "--value": "75", "--size": "8rem", "--thickness": "1rem" }}></div>
 				</div>
 			}
+
 			{
-				!loading && selected !== 'reported' && <div className="flex-grow">
+				users.length === 0 && <h4 className="w-full mt-6 text-center font-bold text-xl">Nothing but crickets 🦗</h4>
+			}
+
+			{
+				!loading && selected !== 'reported' && users.length !== 0 && <div className="flex-grow">
 					<div className="overflow-x-auto w-full">
 						<table className="table w-full">
 							{/* table header */}
@@ -97,7 +102,7 @@ function Dashboard() {
 				</div>
 			}
 			{
-				!loading && selected === 'reported' && <div className="flex-grow">
+				!loading && selected === 'reported' && users.length !== 0 && <div className="flex-grow">
 					<div className="overflow-x-auto w-full">
 						<table className="table w-full">
 							{/* table header */}
@@ -121,7 +126,7 @@ function Dashboard() {
 					</div>
 				</div>
 			}
-		</div>
+		</div >
 	);
 }
 

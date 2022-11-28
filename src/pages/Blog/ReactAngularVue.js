@@ -1,7 +1,7 @@
 function ReactAngularVue() {
 	return (
-		<article className="mx-8">
-			<h4 className="font-bold text-xl text-center mb-6">React vs Angular vs Vue</h4>
+		<article className="mx-8 my-10">
+			<h4 className="font-bold text-xl text-center mb-6 bg-base-300">React vs Angular vs Vue</h4>
 			<h4 className="font-bold text-lg mb-2">Overview</h4>
 			<p className="mb-4">React is a JavaScript library for web and mobile UI development. It is managed by Facebook. React was introduced in 2013. On the other hand, Angular is a JavaScript framework for web and mobile development. It's TypeScript based. Managed by Google's Angular team. Launched in 2016. Vue is an open sourced JavaScript framework. It was created by  Evan You and maintained by the core vue development team. Initialy launched in 2014. Vue offers both JavaScript and TypeScript</p>
 

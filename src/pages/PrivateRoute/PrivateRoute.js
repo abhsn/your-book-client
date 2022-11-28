@@ -8,7 +8,7 @@ function PrivateRoute({ children }) {
 
 	if (loading) {
 		return (
-			<div className='mt-10 grid place-items-center'>
+			<div className='my-10 grid place-items-center'>
 				<div className="text-center radial-progress animate-spin" style={{ "--value": "75", "--size": "12rem", "--thickness": "1rem" }}></div>
 			</div>
 		);
