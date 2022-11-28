@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getJWT } from "../../api/serverFetch";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import setTitle from "../../utils/setTitle";
 
 function Register() {
 	const { register, handleSubmit, formState: { errors }, setError } = useForm();
@@ -13,6 +14,8 @@ function Register() {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const from = location.state?.from?.pathname || "/";
+
+	setTitle('Register');
 
 	const saveUser = (name, email, userType) => {
 		const user = { name, email, userType };

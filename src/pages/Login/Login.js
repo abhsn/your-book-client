@@ -5,6 +5,7 @@ import { BsGoogle } from "react-icons/bs";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { getJWT } from "../../api/serverFetch";
+import setTitle from "../../utils/setTitle";
 
 function Login() {
 	const { register, handleSubmit, formState: { errors } } = useForm();
@@ -12,6 +13,8 @@ function Login() {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const from = location.state?.from?.pathname || "/";
+
+	setTitle('Login');
 
 	// firebase error
 	const [error, setError] = useState('');

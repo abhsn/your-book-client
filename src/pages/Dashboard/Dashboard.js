@@ -3,6 +3,7 @@ import { getBuyers, getReported, getSellers } from "../../api/serverFetch";
 import ReportedItemRow from "../../components/ReportedItemRow/ReportedItemRow";
 import TableRow from "../../components/TableRow/TableRow";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import setTitle from "../../utils/setTitle";
 
 function Dashboard() {
 	const [selected, setSelected] = useState('sellers');
@@ -10,6 +11,8 @@ function Dashboard() {
 	const { user } = useContext(AuthContext);
 	const [loading, setLoading] = useState(true);
 	const [table, setTable] = useState('');
+
+	setTitle('Dashboard');
 
 	const fetchSellers = async () => {
 		if (user?.email) {
