@@ -4,7 +4,7 @@ import { GoVerified } from 'react-icons/go';
 
 function TableRow({ user, count, table, fetchSellers, fetchBuyers }) {
 	const deleteUser = () => {
-		fetch('http://localhost:5000/deleteUser', {
+		fetch('https://b612-used-products-resale-server-side-abhsn.vercel.app/deleteUser', {
 			method: 'DELETE',
 			headers: {
 				authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -27,7 +27,7 @@ function TableRow({ user, count, table, fetchSellers, fetchBuyers }) {
 	}
 
 	const verifyUser = () => {
-		fetch('http://localhost:5000/verifyUser', {
+		fetch('https://b612-used-products-resale-server-side-abhsn.vercel.app/verifyUser', {
 			method: 'POST',
 			headers: {
 				authorization: `Bearer ${localStorage.getItem('accessToken')}`,

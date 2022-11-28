@@ -42,3 +42,8 @@ For back-end:
 * jsonwebtoken
 * Stripe
 * MongoDB
+
+#### Admin Account
+adminEmail: `admin@example.com`
+
+adminPassword: `example`

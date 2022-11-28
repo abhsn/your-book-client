@@ -17,47 +17,12 @@ function BuyerDashboard() {
 
 	const { isLoading, data: myOrders = [], refetch } = useQuery({
 		queryKey: ['myOrders'],
-		queryFn: () => fetch(`http://localhost:5000/myOrders?email=${user.email}`, {
+		queryFn: () => fetch(`https://b612-used-products-resale-server-side-abhsn.vercel.app/myOrders?email=${user.email}`, {
 			headers: {
 				authorization: `Bearer ${localStorage.getItem('accessToken')}`
 			}
 		}).then(res => res.json())
 	})
-
-	// useEffect(() => {
-	// 	fetch(`http://localhost:5000/myOrders?email=${user.email}`, {
-	// 		headers: {
-	// 			authorization: `Bearer ${localStorage.getItem('accessToken')}`
-	// 		}
-	// 	})
-	// 		.then(res => res.json())
-	// 		.then(data => {
-	// 			setOrders(data);
-	// 			setLoading(false);
-	// 		})
-	// }, [user]);
-
-	// const fetchOrder = () => {
-	// 	if (user) {
-	// 		fetch(`http://localhost:5000/myOrders?email=${user?.email}`, {
-	// 			headers: {
-	// 				authorization: `Bearer ${localStorage.getItem('accessToken')}`
-	// 			}
-	// 		})
-	// 			.then(res => res.json())
-	// 			.then(data => {
-	// 				setOrders(data);
-	// 				setLoading(false);
-	// 			})
-	// 	}
-	// }
-
-	// const {isLoading, error, data } = useQuery("")
-
-	// const { data: test = [] } = useQuery({
-	// 	queryKey: ['myOrders'],
-	// 	queryFn: fetchOrder,
-	// })
 
 	return (
 		<section className="lg:flex">

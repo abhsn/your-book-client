@@ -41,7 +41,7 @@ function PaymentModal({ product, setPayment, refetch }) {
 			setError('');
 			setLoading(true);
 			document.body.style.cursor = 'not-allowed';
-			const response = await axios.post(`http://localhost:5000/payment/${product._id}`, {
+			const response = await axios.post(`https://b612-used-products-resale-server-side-abhsn.vercel.app/payment/${product._id}`, {
 				id: paymentMethod.id,
 				email: user.email
 			}, {

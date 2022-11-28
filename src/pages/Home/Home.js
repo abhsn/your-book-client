@@ -11,7 +11,7 @@ function Home() {
 	setTitle('Home');
 
 	useEffect(() => {
-		fetch('http://localhost:5000/getAdversied')
+		fetch('https://b612-used-products-resale-server-side-abhsn.vercel.app/getAdversied')
 			.then(res => res.json())
 			.then(data => setAdvertised(data));
 	}, []);

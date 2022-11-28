@@ -23,7 +23,7 @@ function Login() {
 		setError('');
 		signIn(email, password)
 			.then(result => {
-				fetch(`http://localhost:5000/jwt?email=${result.user.email}`)
+				fetch(`https://b612-used-products-resale-server-side-abhsn.vercel.app/jwt?email=${result.user.email}`)
 					.then(res => res.json())
 					.then(data => {
 						if (data.accessToken) {
@@ -44,7 +44,7 @@ function Login() {
 				const user = result.user;
 				const newUser = { name: user.displayName, email: user.email, userType: 'buyer' };
 
-				fetch('http://localhost:5000/users', {
+				fetch('https://b612-used-products-resale-server-side-abhsn.vercel.app/users', {
 					method: "POST",
 					headers: {
 						'content-type': 'application/json',

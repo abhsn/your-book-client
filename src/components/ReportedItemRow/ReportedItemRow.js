@@ -4,7 +4,7 @@ import { BsTrash } from 'react-icons/bs';
 function ReportedItemRow({ item, count, fetchReported }) {
 
 	const deleteReported = () => {
-		fetch(`http://localhost:5000/deleteReported/${item._id}`, {
+		fetch(`https://b612-used-products-resale-server-side-abhsn.vercel.app/deleteReported/${item._id}`, {
 			method: "delete",
 			headers: {
 				authorization: `Bearer ${localStorage.getItem('accessToken')}`

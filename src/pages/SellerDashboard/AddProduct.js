@@ -41,7 +41,7 @@ function AddProduct({ setSelected }) {
 						sellerName: user.displayName,
 						sellerEmail: user.email
 					}
-					fetch('http://localhost:5000/addItem', {
+					fetch('https://b612-used-products-resale-server-side-abhsn.vercel.app/addItem', {
 						method: 'POST',
 						headers: {
 							'content-type': 'application/json',

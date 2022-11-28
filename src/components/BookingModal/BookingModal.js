@@ -23,7 +23,7 @@ function BookingModal({ user, productName, price, productId }) {
 			productId,
 			buyerDetails
 		}
-		fetch('http://localhost:5000/booking', {
+		fetch('https://b612-used-products-resale-server-side-abhsn.vercel.app/booking', {
 			method: 'PUT',
 			headers: {
 				'content-type': 'application/json',

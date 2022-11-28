@@ -5,7 +5,7 @@ function Quotes() {
 	const [quotes, setQuotes] = useState([]);
 
 	useEffect(() => {
-		fetch('http://localhost:5000/quotes')
+		fetch('https://b612-used-products-resale-server-side-abhsn.vercel.app/quotes')
 			.then(res => res.json())
 			.then(data => setQuotes(data));
 	}, []);

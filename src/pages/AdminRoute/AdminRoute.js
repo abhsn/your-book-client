@@ -12,7 +12,7 @@ function AdminRoute() {
 	const [userType, setUserType] = useState('');
 	const [adminLoading, setAdminLoading] = useState(true);
 	useEffect(() => {
-		fetch(`http://localhost:5000/userType?email=${user.email}`, {
+		fetch(`https://b612-used-products-resale-server-side-abhsn.vercel.app/userType?email=${user.email}`, {
 			headers: {
 				authorization: `Bearer ${localStorage.getItem('accessToken')}`
 			}

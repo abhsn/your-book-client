@@ -20,7 +20,7 @@ function CategoryDetailsCard({ product, setProductName, setPrice, setProductId, 
 			email: user.email,
 			productId: _id
 		}
-		fetch('http://localhost:5000/reportToAdmin/', {
+		fetch('https://b612-used-products-resale-server-side-abhsn.vercel.app/reportToAdmin/', {
 			method: 'POST',
 			headers: {
 				authorization: `Bearer ${localStorage.getItem('accessToken')}`,

@@ -2,7 +2,7 @@ import axios from "axios";
 // https://b612-used-products-resale-server-side-abhsn.vercel.app
 
 const serverFetch = axios.create({
-	baseURL: "http://localhost:5000"
+	baseURL: "https://b612-used-products-resale-server-side-abhsn.vercel.app"
 })
 
 export const getCategories = async () => {

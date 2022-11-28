@@ -6,7 +6,7 @@ function MyProducts() {
 	const { data: myProducts = [], refetch } = useQuery({
 		queryKey: ['myProducts'],
 		queryFn: () =>
-			fetch('http://localhost:5000/myProducts', {
+			fetch('https://b612-used-products-resale-server-side-abhsn.vercel.app/myProducts', {
 				headers: {
 					authorization: `Bearer ${localStorage.getItem('accessToken')}`
 				}

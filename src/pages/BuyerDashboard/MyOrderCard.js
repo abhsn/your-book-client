@@ -5,7 +5,7 @@ function MyOrderCard({ order, setProduct, setPayment }) {
 	const [item, setItem] = useState({});
 
 	useEffect(() => {
-		fetch(`http://localhost:5000/getProductDetails?id=${productId}`, {
+		fetch(`https://b612-used-products-resale-server-side-abhsn.vercel.app/getProductDetails?id=${productId}`, {
 			headers: {
 				authorization: `Bearer ${localStorage.getItem('accessToken')}`
 			}

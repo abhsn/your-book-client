@@ -5,7 +5,7 @@ function ProductCard({ product, refetch }) {
 	const { _id, productName, resalePrice, img, categoryName, location, time, status } = product;
 
 	function deleteProduct() {
-		fetch(`http://localhost:5000/deleteProduct/${_id}`, {
+		fetch(`https://b612-used-products-resale-server-side-abhsn.vercel.app/deleteProduct/${_id}`, {
 			method: "delete",
 			headers: {
 				authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -23,7 +23,7 @@ function ProductCard({ product, refetch }) {
 	}
 
 	function advertiseProduct() {
-		fetch(`http://localhost:5000/advertiseProduct/${_id}`, {
+		fetch(`https://b612-used-products-resale-server-side-abhsn.vercel.app/advertiseProduct/${_id}`, {
 			method: "POST",
 			headers: {
 				authorization: `Bearer ${localStorage.getItem('accessToken')}`
