@@ -2,13 +2,16 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 import { BsGoogle } from "react-icons/bs";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { getJWT } from "../../api/serverFetch";
 
 function Login() {
 	const { register, handleSubmit, formState: { errors } } = useForm();
 	const { signIn, googleSignIn } = useContext(AuthContext);
+	const location = useLocation();
 	const navigate = useNavigate();
+	const from = location.state?.from?.pathname || "/";
 
 	// firebase error
 	const [error, setError] = useState('');
@@ -22,7 +25,7 @@ function Login() {
 					.then(data => {
 						if (data.accessToken) {
 							localStorage.setItem('accessToken', data.accessToken);
-							navigate('/');
+							navigate(from, { replace: true });
 						} else {
 							toast.error('An error occurred');
 						}
@@ -34,7 +37,29 @@ function Login() {
 	const loginWithGoogle = () => {
 		setError('');
 		googleSignIn()
-			.then(result => console.log(result))
+			.then(result => {
+				const user = result.user;
+				const newUser = { name: user.displayName, email: user.email, userType: 'buyer' };
+
+				fetch('http://localhost:5000/users', {
+					method: "POST",
+					headers: {
+						'content-type': 'application/json',
+						'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+					},
+					body: JSON.stringify(newUser)
+				})
+					.then(res => res.json())
+					.then(async data => {
+						const jwt = await getJWT(user.email);
+						localStorage.setItem('accessToken', jwt.accessToken);
+						if (jwt.accessToken) {
+							toast.success('Logged in successfully');
+						} else {
+							toast.error('An error occurred');
+						}
+					})
+			})
 			.catch(err => setError(err.message))
 	}
 

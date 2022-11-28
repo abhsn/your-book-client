@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getJWT } from "../../api/serverFetch";
 import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
 
@@ -10,6 +10,9 @@ function Register() {
 	const { signUp, updateUserProfile, setUser } = useContext(AuthContext);
 	const [firebaseError, setFirebaseError] = useState('');
 	const [buyer, setBuyer] = useState(true);
+	const location = useLocation();
+	const navigate = useNavigate();
+	const from = location.state?.from?.pathname || "/";
 
 	const saveUser = (name, email, userType) => {
 		const user = { name, email, userType };
@@ -29,6 +32,7 @@ function Register() {
 					localStorage.setItem('accessToken', jwt.accessToken);
 					if (jwt.accessToken) {
 						toast.success('User created successfully');
+						navigate(from, { replace: true });
 					} else {
 						toast.error('An error occurred');
 					}

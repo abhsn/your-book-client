@@ -60,7 +60,7 @@ function TableRow({ user, count, table, fetchSellers, fetchBuyers }) {
 				<th>
 					<div className='flex items-center gap-4'>
 						{
-							table === 'sellers' && <button onClick={verifyUser} className='btn btn-primary btn-sm'>Verify</button>
+							table === 'sellers' && !user.isVerified && <button onClick={verifyUser} className='btn btn-primary btn-sm'>Verify</button>
 						}
 						<button className="text-2xl" onClick={deleteUser}><BsTrash /></button>
 					</div>
