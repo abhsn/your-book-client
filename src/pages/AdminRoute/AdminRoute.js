@@ -19,6 +19,9 @@ function AdminRoute() {
 		})
 			.then(res => res.json())
 			.then(data => {
+				if (data.message === 'forbidden') {
+					toast.error('An error occurred. Please try to log out and log in again.');
+				}
 				setUserType(data.userType);
 				setAdminLoading(false);
 			});

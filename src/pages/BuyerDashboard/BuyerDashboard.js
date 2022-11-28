@@ -68,16 +68,22 @@ function BuyerDashboard() {
 			</div>
 
 			{
+				myOrders.length === 0 && <h3 className="w-full text-center text-xl font-bold">You have no order.</h3>
+			}
+
+			{
 				isLoading && <div className='mt-10 grid place-items-center'>
 					<div className="text-center radial-progress animate-spin" style={{ "--value": "75", "--size": "8rem", "--thickness": "1rem" }}></div>
 				</div>
 			}
 
-			<div className="w-10/12 gap-4 mx-auto grid place-content-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-				{
-					myOrders.map((order) => <MyOrderCard key={order._id} order={order} setProduct={setProduct} setPayment={setPayment} />)
-				}
-			</div>
+			{
+				myOrders.length !== 0 && <div className="w-10/12 gap-4 mx-auto grid place-content-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+					{
+						myOrders.map((order) => <MyOrderCard key={order._id} order={order} setProduct={setProduct} setPayment={setPayment} />)
+					}
+				</div>
+			}
 
 			{/* payment modal */}
 			<Elements stripe={stripePromise}>

@@ -51,6 +51,9 @@ function ProductCard({ product, refetch }) {
 				<p>Category: {categoryName}</p>
 				<p>Price: ${resalePrice}</p>
 				<p>Location: {location}</p>
+				{
+					!product.status && <p>Status: Avilable</p>
+				}
 				<p>Post date: {format(new Date(time), 'PP')}</p>
 				{
 					status === 'sold' ?
