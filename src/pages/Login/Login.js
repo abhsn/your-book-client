@@ -58,6 +58,7 @@ function Login() {
 						localStorage.setItem('accessToken', jwt.accessToken);
 						if (jwt.accessToken) {
 							toast.success('Logged in successfully');
+							navigate(from, { replace: true });
 						} else {
 							toast.error('An error occurred');
 						}
