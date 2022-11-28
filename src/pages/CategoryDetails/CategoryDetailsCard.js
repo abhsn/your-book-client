@@ -1,9 +1,43 @@
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { GoVerified } from 'react-icons/go';
 import { format } from 'date-fns';
+import { useContext } from 'react';
+import { AuthContext } from "../../contexts/AuthProvider/AuthProvider";
+import toast from 'react-hot-toast';
 
-function CategoryDetailsCard({ product, setProductName, setPrice, setProductId, setOpenModal }) {
-	const { _id, productName, img, location, resalePrice, originalPrice, purchasedYear, time, sellerName, isSellerVerified, productCondition } = product;
+function CategoryDetailsCard({ product, setProductName, setPrice, setProductId, setOpenModal, refetch }) {
+	const { _id, productName, img, location, resalePrice, originalPrice, purchasedYear, time, sellerName, isSellerVerified, productCondition, reported } = product;
+
+	let reportedArray = '';
+	if (typeof reported === 'object') {
+		reportedArray = [...reported];
+	}
+
+	const { user } = useContext(AuthContext);
+
+	const reportToAdmin = () => {
+		const reportDetails = {
+			email: user.email,
+			productId: _id
+		}
+		fetch('http://localhost:5000/reportToAdmin/', {
+			method: 'POST',
+			headers: {
+				authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+				"content-type": "application/json"
+			},
+			body: JSON.stringify(reportDetails)
+		})
+			.then(res => res.json())
+			.then(data => {
+				console.log(data)
+				if (data.success) {
+					toast.success('Successfully reported to admin');
+				} else {
+					toast.error('An error occurred');
+				}
+			})
+	}
 
 	return (
 		// product details card
@@ -37,8 +71,19 @@ function CategoryDetailsCard({ product, setProductName, setPrice, setProductId, 
 				{/* time when posted */}
 				<span>Post time: {format(new Date(parseInt(time)), 'PP')}</span>
 
-				<div className="card-actions justify-end">
+				<div className="card-actions justify-end mt-2">
 					{/* <button className="btn btn-primary">Book now</button> */}
+					{
+						!reportedArray.includes(user.email) && <button onClick={() => {
+							reportToAdmin();
+							refetch();
+						}} className='btn btn-error'>Report to admin</button>
+					}
+
+					{
+						reportedArray.includes(user.email) && <button onClick={reportToAdmin} className='btn btn-error' disabled>Already reported</button>
+					}
+
 					<label htmlFor="booking-modal" className="btn btn-primary" onClick={() => {
 						setProductName(productName);
 						setPrice(resalePrice);
