@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import setTitle from "../../utils/setTitle";
 import AdvertisedItems from "./AdvertisedItems/AdvertisedItems";
 import Categories from "./Categories";
+import Quotes from "./Quotes/Qoutes";
 import Slider from "./Slider";
 
 function Home() {
@@ -22,6 +23,7 @@ function Home() {
 			{
 				advertised.length > 0 && <AdvertisedItems advertised={advertised} />
 			}
+			<Quotes />
 		</>
 	);
 }
